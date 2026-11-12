@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="gpui-scan is a React Scan-style overlay for GPUI: re-render outlines, a live FPS readout, and a devtools inspector for any element."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="gpui-scan" />
+    <meta
+      property="og:description"
+      content="See exactly what re-rendered in your GPUI app."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>gpui-scan</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: #0a0a0a;
+        color: #f4f4f5;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body > canvas {
+        position: fixed;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      #loading {
+        position: fixed;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 13px;
+        color: #8b8b8b;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading">Loading gpui-scan…</div>
+    <script type="module">
+      import init from "./pkg/gpui_scan_web.js";
+
+      init()
+        .then(() => document.getElementById("loading")?.remove())
+        .catch((error) => {
+          document.getElementById("loading").textContent = String(error);
+          console.error(error);
+        });
+    </script>
+  </body>
+</html>
